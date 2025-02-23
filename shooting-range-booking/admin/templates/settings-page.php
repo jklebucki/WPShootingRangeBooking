@@ -61,26 +61,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr>
                 <th colspan="2"><h2>Sloty Czasowe</h2></th>
             </tr>
-            <tbody id="time-slots-container">
-                <?php if (!empty($time_slots)): ?>
-                    <?php foreach ($time_slots as $i => $slot): ?>
-                        <tr>
-                            <th><label for="time_slots_<?php echo $i; ?>_range">Zakres godzin:</label></th>
-                            <td><input type="text" id="time_slots_<?php echo $i; ?>_range" name="time_slots[<?php echo $i; ?>][range]" value="<?php echo esc_attr($slot['range']); ?>" required></td>
-                        </tr>
-                        <tr>
-                            <th><label for="time_slots_<?php echo $i; ?>_type">Rodzaj strzelania:</label></th>
-                            <td>
-                                <select id="time_slots_<?php echo $i; ?>_type" name="time_slots[<?php echo $i; ?>][type]" required>
-                                    <option value="static" <?php selected($slot['type'], 'static'); ?>>Statyczne</option>
-                                    <option value="dynamic" <?php selected($slot['type'], 'dynamic'); ?>>Dynamiczne</option>
-                                </select>
-                                <button type="button" class="button remove-time-slot">Usuń</button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
+            <tr>
+                <th>Zakres godzin i rodzaj strzelania:</th>
+                <td>
+                    <table id="time-slots-container">
+                        <?php if (!empty($time_slots)): ?>
+                            <?php foreach ($time_slots as $i => $slot): ?>
+                                <tr>
+                                    <td>
+                                        <input type="text" id="time_slots_<?php echo $i; ?>_range" name="time_slots[<?php echo $i; ?>][range]" value="<?php echo esc_attr($slot['range']); ?>" required>
+                                        <select id="time_slots_<?php echo $i; ?>_type" name="time_slots[<?php echo $i; ?>][type]" required>
+                                            <option value="static" <?php selected($slot['type'], 'static'); ?>>Statyczne</option>
+                                            <option value="dynamic" <?php selected($slot['type'], 'dynamic'); ?>>Dynamiczne</option>
+                                        </select>
+                                        <button type="button" class="button remove-time-slot">Usuń</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </table>
+                </td>
+            </tr>
         </table>
         <button type="button" class="button" id="add-time-slot">Dodaj Slot Czasowy</button>
 
@@ -89,9 +90,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
     </form>
 </div>
-
-<script>
-    var srbs_ajax = {
-        timeSlotIndex: <?php echo count($time_slots); ?>
-    };
-</script>

@@ -5,12 +5,8 @@ jQuery(document).ready(function ($) {
         const container = $('#time-slots-container');
         const newRow = `
             <tr>
-                <th><label for="time_slots_${timeSlotIndex}_range">Zakres godzin:</label></th>
-                <td><input type="text" id="time_slots_${timeSlotIndex}_range" name="time_slots[${timeSlotIndex}][range]" required></td>
-            </tr>
-            <tr>
-                <th><label for="time_slots_${timeSlotIndex}_type">Rodzaj strzelania:</label></th>
                 <td>
+                    <input type="text" id="time_slots_${timeSlotIndex}_range" name="time_slots[${timeSlotIndex}][range]" required>
                     <select id="time_slots_${timeSlotIndex}_type" name="time_slots[${timeSlotIndex}][type]" required>
                         <option value="static">Statyczne</option>
                         <option value="dynamic">Dynamiczne</option>
@@ -24,7 +20,6 @@ jQuery(document).ready(function ($) {
     });
 
     $('#time-slots-container').on('click', '.remove-time-slot', function () {
-        $(this).closest('tr').next().remove();
         $(this).closest('tr').remove();
     });
 });
