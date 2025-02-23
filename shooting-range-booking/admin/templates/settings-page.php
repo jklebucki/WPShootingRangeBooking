@@ -46,7 +46,7 @@ if (!empty($time_slots)) {
 ?>
 
 <div class="wrap">
-    <h1>Ustawienia Systemu</h1>
+    <h1>Ustawienia systemu</h1>
     <form method="POST">
         <?php wp_nonce_field('srbs_save_settings'); ?>
 
@@ -71,11 +71,11 @@ if (!empty($time_slots)) {
             </tr>
             <tr>
                 <th colspan="2">
-                    <h2>Sloty Czasowe</h2>
+                    <h2>Sloty czasowe</h2>
                 </th>
             </tr>
             <tr>
-                <th colspan="2">
+                <td colspan="2">
                     <table id="time-slots-container">
                         <thead>
                             <tr>
@@ -105,17 +105,17 @@ if (!empty($time_slots)) {
                             <?php endif; ?>
                         </tbody>
                     </table>
-                </th>
+                </td>
             </tr>
             <tr>
-                <th colspan="2">
+                <td colspan="2">
                     <button type="button" class="button" id="add-time-slot">Dodaj slot czasowy</button>
-                </th>
+                </td>
             </tr>
             <tr>
-                <th colspan="2">
+                <td colspan="2">
                     <input type="submit" class="button-primary" value="Zapisz ustawienia">
-                </th>
+                </td>
             </tr>
         </table>
     </form>
