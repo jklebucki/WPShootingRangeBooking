@@ -8,6 +8,12 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
+$booking_available = srbs_get_setting('booking_available');
+if (!$booking_available) {
+    echo '<p>Rezerwacje są obecnie niedostępne. Skontaktuj się z administratorem.</p>';
+    return;
+}
+
 // Sprawdzenie, czy użytkownik jest zalogowany
 if (!is_user_logged_in()) {
     // Przekierowanie do logowania i powrót na stronę rezerwacji po zalogowaniu
