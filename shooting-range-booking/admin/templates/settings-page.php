@@ -28,9 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Save time slots
     $time_slots = $_POST['time_slots'];
+    // Sort time slots by 'range' before saving
+    usort($time_slots, function ($a, $b) {
+        return strcmp($a['range'], $b['range']);
+    });
     $wpdb->replace($settings_table, ['setting_key' => 'time_slot', 'setting_value' => json_encode($time_slots)]);
 
     echo '<div class="notice notice-success is-dismissible"><p>Ustawienia zostały zapisane.</p></div>';
+}
+
+// Sort time slots by 'range'
+if (!empty($time_slots)) {
+    usort($time_slots, function ($a, $b) {
+        return strcmp($a['range'], $b['range']);
+    });
 }
 ?>
 
