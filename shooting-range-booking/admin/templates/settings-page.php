@@ -70,31 +70,43 @@ if (!empty($time_slots)) {
                 </td>
             </tr>
             <tr>
-                <th colspan="2"><h2>Sloty Czasowe</h2></th>
+                <th colspan="2">
+                    <h2>Sloty Czasowe</h2>
+                </th>
             </tr>
             <tr>
-                <th>Zakres godzin i rodzaj strzelania:</th>
-                <td>
-                    <table id="time-slots-container">
+                <table id="time-slots-container">
+                    <thead>
+                        <tr>
+                            <th>Zakres godzin</th>
+                            <th>Rodzaj strzelania</th>
+                            <th>Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php if (!empty($time_slots)): ?>
                             <?php foreach ($time_slots as $i => $slot): ?>
                                 <tr>
                                     <td>
                                         <input type="text" id="time_slots_<?php echo $i; ?>_range" name="time_slots[<?php echo $i; ?>][range]" value="<?php echo esc_attr($slot['range']); ?>" required>
+                                    </td>
+                                    <td>
                                         <select id="time_slots_<?php echo $i; ?>_type" name="time_slots[<?php echo $i; ?>][type]" required>
                                             <option value="static" <?php selected($slot['type'], 'static'); ?>>Statyczne</option>
                                             <option value="dynamic" <?php selected($slot['type'], 'dynamic'); ?>>Dynamiczne</option>
                                         </select>
+                                    </td>
+                                    <td>
                                         <button type="button" class="button remove-time-slot">Usuń</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
-                    </table>
-                </td>
+                    </tbody>
+                </table>
             </tr>
         </table>
-        <button type="button" class="button" id="add-time-slot">Dodaj Slot Czasowy</button>
+        <button type="button" class="button" id="add-time-slot">Dodaj slot czasowy</button>
 
         <p class="submit">
             <input type="submit" class="button-primary" value="Zapisz ustawienia">

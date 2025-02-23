@@ -1,1 +1,89 @@
 /* Add your custom styles for the settings page here */
+
+.wrap {
+    font-family: Arial, sans-serif;
+}
+
+.form-table th {
+    font-weight: bold;
+    padding: 10px;
+}
+
+.form-table td {
+    padding: 10px;
+}
+
+#time-slots-container {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#time-slots-container th, #time-slots-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#time-slots-container th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+#time-slots-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#time-slots-container tr:hover {
+    background-color: #ddd;
+}
+
+#time-slots-container th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.notice {
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    margin-bottom: 20px;
+    border-left: 6px solid #4CAF50;
+}
+
+.notice.notice-success {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.notice.is-dismissible {
+    padding-right: 35px;
+}
+
+.notice.is-dismissible .notice-dismiss {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -9px;
+    color: #fff;
+    text-decoration: none;
+}
