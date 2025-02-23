@@ -95,12 +95,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         timeSlotIndex: <?php echo count($time_slots); ?>
     };
 </script>
-
-<?php
-function srbs_enqueue_settings_assets() {
-    wp_enqueue_script('settings-script', plugin_dir_url(__FILE__) . 'settings-script.js', array('jquery'), null, true);
-    wp_localize_script('settings-script', 'srbs_ajax', array('ajax_url' => admin_url('admin-ajax.php')));
-    wp_enqueue_style('settings-style', plugin_dir_url(__FILE__) . 'settings-style.css');
-}
-add_action('admin_enqueue_scripts', 'srbs_enqueue_settings_assets');
-?>
