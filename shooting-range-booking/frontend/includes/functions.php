@@ -4,11 +4,13 @@ if (!defined('ABSPATH')) {
 }
 
 function srbs_get_time_slots() {
-    global $wpdb;
-    $settings_table = $wpdb->prefix . 'srbs_settings';
-    $time_slots = $wpdb->get_results("SELECT setting_value FROM $settings_table WHERE setting_key LIKE 'time_slot_%' ORDER BY setting_key");
+    $time_slots = srbs_get_setting('time_slot');
+    return $time_slots ? json_decode($time_slots, true) : [];
+}
 
-    return array_map(function($slot) {
-        return json_decode($slot->setting_value);
-    }, $time_slots);
+function srbs_get_bookings() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'srbs_bookings';
+    $results = $wpdb->get_results("SELECT * FROM $table_name");
+    return $results;
 }

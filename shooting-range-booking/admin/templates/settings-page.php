@@ -11,7 +11,7 @@ $next_reservation_date = $wpdb->get_var("SELECT setting_value FROM $settings_tab
 $dynamic_slots = $wpdb->get_var("SELECT setting_value FROM $settings_table WHERE setting_key = 'max_dynamic_slots'");
 $custom_message = $wpdb->get_var("SELECT setting_value FROM $settings_table WHERE setting_key = 'custom_message'");
 $static_slots = $wpdb->get_var("SELECT setting_value FROM $settings_table WHERE setting_key = 'max_static_slots'");
-$time_slots = $wpdb->get_results("SELECT * FROM $settings_table WHERE setting_key LIKE 'time_slot_%' ORDER BY setting_key");
+$time_slots = json_decode($wpdb->get_var("SELECT setting_value FROM $settings_table WHERE setting_key = 'time_slot'"), true);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     check_admin_referer('srbs_save_settings');
@@ -28,9 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Save time slots
     $time_slots = $_POST['time_slots'];
-    foreach ($time_slots as $key => $slot) {
-        $wpdb->replace($settings_table, ['setting_key' => 'time_slot_' . $key, 'setting_value' => json_encode($slot)]);
-    }
+    $wpdb->replace($settings_table, ['setting_key' => 'time_slot', 'setting_value' => json_encode($time_slots)]);
 
     echo '<div class="notice notice-success is-dismissible"><p>Ustawienia zostały zapisane.</p></div>';
 }
@@ -63,25 +61,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr>
                 <th colspan="2"><h2>Sloty Czasowe</h2></th>
             </tr>
-            <?php for ($i = 0; $i < 3; $i++): // Adjust the number of slots as needed ?>
-                <tr>
-                    <th><label for="time_slots_<?php echo $i; ?>_range">Zakres godzin:</label></th>
-                    <td><input type="text" id="time_slots_<?php echo $i; ?>_range" name="time_slots[<?php echo $i; ?>][range]" value="<?php echo esc_attr($time_slots[$i]->range ?? ''); ?>" required></td>
-                </tr>
-                <tr>
-                    <th><label for="time_slots_<?php echo $i; ?>_type">Rodzaj strzelania:</label></th>
-                    <td>
-                        <select id="time_slots_<?php echo $i; ?>_type" name="time_slots[<?php echo $i; ?>][type]" required>
-                            <option value="static" <?php selected($time_slots[$i]->type ?? '', 'static'); ?>>Statyczne</option>
-                            <option value="dynamic" <?php selected($time_slots[$i]->type ?? '', 'dynamic'); ?>>Dynamiczne</option>
-                        </select>
-                    </td>
-                </tr>
-            <?php endfor; ?>
+            <tbody id="time-slots-container">
+                <?php if (!empty($time_slots)): ?>
+                    <?php foreach ($time_slots as $i => $slot): ?>
+                        <tr>
+                            <th><label for="time_slots_<?php echo $i; ?>_range">Zakres godzin:</label></th>
+                            <td><input type="text" id="time_slots_<?php echo $i; ?>_range" name="time_slots[<?php echo $i; ?>][range]" value="<?php echo esc_attr($slot['range']); ?>" required></td>
+                        </tr>
+                        <tr>
+                            <th><label for="time_slots_<?php echo $i; ?>_type">Rodzaj strzelania:</label></th>
+                            <td>
+                                <select id="time_slots_<?php echo $i; ?>_type" name="time_slots[<?php echo $i; ?>][type]" required>
+                                    <option value="static" <?php selected($slot['type'], 'static'); ?>>Statyczne</option>
+                                    <option value="dynamic" <?php selected($slot['type'], 'dynamic'); ?>>Dynamiczne</option>
+                                </select>
+                                <button type="button" class="button remove-time-slot">Usuń</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
         </table>
+        <button type="button" class="button" id="add-time-slot">Dodaj Slot Czasowy</button>
 
         <p class="submit">
             <input type="submit" class="button-primary" value="Zapisz ustawienia">
         </p>
     </form>
 </div>
+
+<script>
+    var srbs_ajax = {
+        timeSlotIndex: <?php echo count($time_slots); ?>
+    };
+</script>

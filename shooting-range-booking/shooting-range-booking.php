@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Shooting Range Booking System
  * Description: System rezerwacji stanowisk strzeleckich dla WordPress.
- * Version: 1.2
+ * Version: 1.5.1
  * Author: Jarosław Kłębucki
  */
 
