@@ -9,6 +9,11 @@ $current_user_id = get_current_user_id();
 $static_slots = srbs_get_setting('max_static_slots');
 $dynamic_slots = srbs_get_setting('max_dynamic_slots');
 $time_slots = srbs_get_time_slots();
+
+if (is_null($static_slots) || $static_slots == 0 || is_null($dynamic_slots) || $dynamic_slots == 0 || empty($time_slots)) {
+    echo '<p>Błędne ustawienia systemu</p>';
+    return;
+}
 ?>
 
 <table class="srbs-booking-table">
