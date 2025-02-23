@@ -11,10 +11,3 @@ function srbs_get_time_slots() {
     });
     return $time_slots;
 }
-
-function srbs_get_bookings() {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'srbs_bookings';
-    $results = $wpdb->get_results("SELECT * FROM $table_name");
-    return $results;
-}
