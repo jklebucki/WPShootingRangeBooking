@@ -1,0 +1,186 @@
+.srbs-booking-container {
+    max-width: 90% !important;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    width: 100%;
+    overflow-x: auto;
+    padding: 15px;
+}
+
+.srbs-booking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin: 15px 0;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.srbs-booking-table th, .srbs-booking-table td {
+    border: 1px solid #ddd !important;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.srbs-booking-table th {
+    background-color: #0073aa !important;
+    color: white !important;
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.srbs-booking-table th:first-child, .srbs-booking-table td:first-child {
+    width: 120px; /* Adjust width to ensure text fits in one line */
+    min-width: 120px; /* Ensure minimum width */
+}
+
+.srbs-book-slot {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center; /* Center the text */
+    padding: 5px 10px !important;
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: none;
+    border-radius: 12px !important; /* Match the badge shape */
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    max-width: 120px;
+    margin: 2px; /* Add margin to prevent sticking */
+    padding: 6px;
+    white-space: nowrap; /* Ensure content fits in one line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 36px !important; /* Match the height of the badge */
+}
+
+.srbs-book-slot:hover {
+    background-color: rgba(40, 167, 69, 0.2);
+}
+
+.badge {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center; /* Center the content horizontally */
+    padding: 5px 10px !important;
+    background-color: rgba(0, 115, 170, 0.1) !important;
+    color: #0073aa;
+    border-radius: 12px !important;
+    position: relative !important;
+    font-size: 14px !important;
+    min-width: 80px; /* Ensure enough space for "#000 x" */
+    margin: 2px; /* Add margin to prevent sticking */
+    white-space: nowrap; /* Ensure content fits in one line */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 36px !important; /* Match the height of the book slot */
+}
+
+.srbs-cancel-booking {
+    padding: 0px !important;
+    background: none;
+    border: none;
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0px 0px 3px 5px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.srbs-time-header, .srbs-time-cell {
+    white-space: nowrap;
+    width: 150px; /* Adjust width as needed */
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .srbs-booking-table thead {
+        display: none;
+    }
+
+    .srbs-booking-table, .srbs-booking-table tbody, .srbs-booking-table tr, .srbs-booking-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .srbs-booking-table tr {
+        margin-bottom: 15px;
+    }
+
+    .srbs-booking-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .srbs-booking-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 30px);
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .srbs-booking-table td:first-child {
+        width: 100%; /* Ensure full width for the "Godzina" column */
+        min-width: 100%; /* Ensure minimum width */
+    }
+}
+
+.srbs-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.srbs-modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+.srbs-modal p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.srbs-modal-close {
+    background-color: transparent;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.srbs-modal-close:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.srbs-booking-table th, .srbs-booking-table td, .srbs-book-slot, .badge, .srbs-cancel-booking {
+    font-size: 16px !important; /* Force font size */
+}
