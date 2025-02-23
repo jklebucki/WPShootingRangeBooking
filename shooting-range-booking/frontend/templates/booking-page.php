@@ -3,6 +3,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+require_once plugin_dir_path(dirname(__FILE__)) . 'includes/functions.php'; // Ensure the functions file is included
+
 //Wyłączenie cache dla strony rezerwacji
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
