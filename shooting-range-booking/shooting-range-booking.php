@@ -86,6 +86,23 @@ function srbs_settings_page()
     include plugin_dir_path(__FILE__) . 'admin/templates/settings-page.php';
 }
 
+// ✅ Ładowanie plików CSS i JS dla strony ustawień
+function srbs_enqueue_settings_assets($hook)
+{
+    if (strpos($hook, 'srbs_settings') === false) {
+        return;
+    }
+
+    wp_enqueue_style('srbs-settings-css', plugin_dir_url(__FILE__) . 'admin/css/settings-style.css');
+    wp_enqueue_script('srbs-settings-js', plugin_dir_url(__FILE__) . 'admin/js/settings-script.js', array('jquery'), null, true);
+
+    wp_localize_script('srbs-settings-js', 'srbs_ajax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('srbs_nonce')
+    ));
+}
+add_action('admin_enqueue_scripts', 'srbs_enqueue_settings_assets');
+
 function srbs_user_management_page() {
     if (!current_user_can('manage_options')) {
         wp_die(__('Nie masz uprawnień do tej strony.'));
@@ -109,6 +126,9 @@ function srbs_enqueue_user_management_assets($hook)
     ));
 }
 add_action('admin_enqueue_scripts', 'srbs_enqueue_user_management_assets');
+
+
+
 
 // ✅ Załadowanie obsługi AJAX
 include plugin_dir_path(__FILE__) . 'admin/includes/user-management-ajax.php';
