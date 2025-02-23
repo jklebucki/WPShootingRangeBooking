@@ -3,6 +3,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+require_once plugin_dir_path(dirname(__FILE__)) . 'includes/functions.php';
+
 $current_user_id = get_current_user_id();
 $static_slots = srbs_get_setting('max_static_slots');
 $time_slots = srbs_get_time_slots();
