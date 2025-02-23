@@ -109,12 +109,12 @@ if (!empty($time_slots)) {
             </tr>
             <tr>
                 <td colspan="2">
-                    <button type="button" class="button" id="add-time-slot">Dodaj slot czasowy</button>
+                    <button type="button" class="button button-sized" id="add-time-slot">Dodaj slot czasowy</button>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" class="button-primary" value="Zapisz ustawienia">
+                    <input type="submit" class="button-primary button-sized" value="Zapisz ustawienia">
                 </td>
             </tr>
         </table>
