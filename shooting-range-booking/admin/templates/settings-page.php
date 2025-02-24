@@ -52,8 +52,15 @@ if (!empty($time_slots)) {
     <h1>Ustawienia systemu</h1>
     <form method="POST">
         <?php wp_nonce_field('srbs_save_settings'); ?>
-
         <table class="form-table">
+            <tr>
+                <th>
+                    <label>Shortcode na stronę:</label>
+                </th>
+                <td>
+                    <label>[srbs_booking]</label>
+                </td>
+            </tr>
             <tr>
                 <th><label for="booking_available">Rezerwacja dostępna:</label></th>
                 <td>
