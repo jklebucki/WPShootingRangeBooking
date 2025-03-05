@@ -13,7 +13,7 @@ function srbs_update_club_number()
 
     update_user_meta($user_id, 'club_number', $club_number);
 
-    wp_send_json_success("Numer klubowy zaktualizowany.");
+    wp_send_json_success(__("Club number updated.", 'srbs'));
 }
 
 add_action('wp_ajax_srbs_toggle_shooter_role', 'srbs_toggle_shooter_role');
@@ -26,9 +26,9 @@ function srbs_toggle_shooter_role()
 
     if (in_array('shooter', $user->roles)) {
         $user->remove_role('shooter');
-        wp_send_json_success("Rola strzelca usunięta.");
+        wp_send_json_success(__("Shooter role removed.", 'srbs'));
     } else {
         $user->add_role('shooter');
-        wp_send_json_success("Rola strzelca dodana.");
+        wp_send_json_success(__("Shooter role added.", 'srbs'));
     }
 }

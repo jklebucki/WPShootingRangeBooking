@@ -1,0 +1,134 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl_PL\n"
+
+msgid "You do not have permission."
+msgstr "Brak uprawnień."
+
+msgid "Booking has been deleted."
+msgstr "Rezerwacja została usunięta."
+
+msgid "Failed to delete booking."
+msgstr "Nie udało się usunąć rezerwacji."
+
+msgid "Static"
+msgstr "Statyczne"
+
+msgid "Dynamic"
+msgstr "Dynamiczne"
+
+msgid "Remove"
+msgstr "Usuń"
+
+msgid "User Management"
+msgstr "Zarządzanie Użytkownikami"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Username"
+msgstr "Użytkownik"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Imię"
+
+msgid "Last Name"
+msgstr "Nazwisko"
+
+msgid "Club Number"
+msgstr "Numer Klubowy"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Actions"
+msgstr "Akcje"
+
+msgid "Remove Shooter Role"
+msgstr "Usuń rolę strzelca"
+
+msgid "Add Shooter Role"
+msgstr "Dodaj rolę strzelca"
+
+msgid "Settings have been saved."
+msgstr "Ustawienia zostały zapisane."
+
+msgid "System Settings"
+msgstr "Ustawienia systemu"
+
+msgid "Shortcode for page:"
+msgstr "Shortcode na stronę:"
+
+msgid "Booking available:"
+msgstr "Rezerwacja dostępna:"
+
+msgid "Next reservation date:"
+msgstr "Data następnej rezerwacji:"
+
+msgid "Maximum number of static shooting slots:"
+msgstr "Maksymalna liczba miejsc na strzelanie statyczne:"
+
+msgid "Maximum number of dynamic shooting slots:"
+msgstr "Maksymalna liczba miejsc na strzelanie dynamiczne:"
+
+msgid "Message for users:"
+msgstr "Komunikat dla użytkowników:"
+
+msgid "Time Slots"
+msgstr "Sloty czasowe"
+
+msgid "Time Range"
+msgstr "Zakres godzin"
+
+msgid "Shooting Type"
+msgstr "Rodzaj strzelania"
+
+msgid "Add Time Slot"
+msgstr "Dodaj slot czasowy"
+
+msgid "Save Settings"
+msgstr "Zapisz ustawienia"
+
+msgid "Shooting Range Reservations"
+msgstr "Rezerwacje Strzelnicy"
+
+msgid "Management panel for shooting range reservations."
+msgstr "Panel zarządzania rezerwacjami stanowisk strzeleckich."
+
+msgid "Filter by date:"
+msgstr "Filtruj po dacie:"
+
+msgid "Filter"
+msgstr "Filtruj"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "User"
+msgstr "Użytkownik"
+
+msgid "Time"
+msgstr "Godzina"
+
+msgid "Stand"
+msgstr "Stanowisko"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Club number updated."
+msgstr "Numer klubowy zaktualizowany."
+
+msgid "Shooter role removed."
+msgstr "Rola strzelca usunięta."
+
+msgid "Shooter role added."
+msgstr "Rola strzelca dodana."
+
+msgid "Delete"
+msgstr "Usuń"

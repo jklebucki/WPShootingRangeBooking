@@ -10,12 +10,12 @@ jQuery(document).ready(function ($) {
                 </td>
                 <td>
                     <select id="time_slots_${timeSlotIndex}_type" name="time_slots[${timeSlotIndex}][type]" required>
-                        <option value="static">Statyczne</option>
-                        <option value="dynamic">Dynamiczne</option>
+                        <option value="static"><?php _e('Static', 'srbs'); ?></option>
+                        <option value="dynamic"><?php _e('Dynamic', 'srbs'); ?></option>
                     </select>
                 </td>
                 <td>
-                    <button type="button" class="button remove-time-slot">Usuń</button>
+                    <button type="button" class="button remove-time-slot"><?php _e('Remove', 'srbs'); ?></button>
                 </td>
             </tr>
         `;

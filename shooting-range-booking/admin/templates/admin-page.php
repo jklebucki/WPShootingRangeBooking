@@ -9,25 +9,25 @@ $bookings = $wpdb->get_results("SELECT * FROM $table_name ORDER BY date DESC, ti
 
 ?>
 <div class="wrap">
-    <h1>Rezerwacje Strzelnicy</h1>
-    <p>Panel zarządzania rezerwacjami stanowisk strzeleckich.</p>
+    <h1><?php _e('Shooting Range Reservations', 'srbs'); ?></h1>
+    <p><?php _e('Management panel for shooting range reservations.', 'srbs'); ?></p>
 
     <div class="filter-wrapper">
-        <label for="filter-date">Filtruj po dacie:</label>
+        <label for="filter-date"><?php _e('Filter by date:', 'srbs'); ?></label>
         <input type="date" id="filter-date" name="filter-date">
-        <button class="button button-primary" style="margin: 0px !important;" id="apply-filter">Filtruj</button>
+        <button class="button button-primary" style="margin: 0px !important;" id="apply-filter"><?php _e('Filter', 'srbs'); ?></button>
     </div>
 
     <table class="wp-list-table widefat fixed striped">
         <thead>
             <tr>
-                <th>Data</th>
-                <th>Użytkownik</th>
-                <th>Numer Klubowy</th>
-                <th>Godzina</th>
-                <th>Stanowisko</th>
-                <th>Typ</th>
-                <th>Akcje</th>
+                <th><?php _e('Date', 'srbs'); ?></th>
+                <th><?php _e('User', 'srbs'); ?></th>
+                <th><?php _e('Club Number', 'srbs'); ?></th>
+                <th><?php _e('Time', 'srbs'); ?></th>
+                <th><?php _e('Stand', 'srbs'); ?></th>
+                <th><?php _e('Type', 'srbs'); ?></th>
+                <th><?php _e('Actions', 'srbs'); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@ $bookings = $wpdb->get_results("SELECT * FROM $table_name ORDER BY date DESC, ti
                         <td><?php echo esc_html($booking->stand_number); ?></td>
                         <td><?php echo esc_html(ucfirst($booking->booking_type)); ?></td>
                         <td>
-                            <button class="button delete-booking" data-id="<?php echo $booking->id; ?>">Usuń</button>
+                            <button class="button delete-booking" data-id="<?php echo $booking->id; ?>"><?php _e('Delete', 'srbs'); ?></button>
                         </td>
                     </tr>
                 <?php endforeach; ?>

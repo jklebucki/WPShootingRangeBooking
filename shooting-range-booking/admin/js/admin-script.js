@@ -11,10 +11,10 @@ jQuery(document).ready(function ($) {
             },
             success: function (response) {
                 if (response.success) {
-                    //alert("Rezerwacja została usunięta.");
+                    //alert("Booking has been deleted.");
                     $(`.details-row[data-id='${bookingId}']`).remove();
                 } else {
-                    alert("Wystąpił błąd: " + response.data);
+                    alert("Error: " + response.data);
                 }
             }
         });
