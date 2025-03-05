@@ -139,9 +139,6 @@ msgstr "Usuń"
 msgid "Additional Information"
 msgstr "Dodatkowe informacje"
 
-msgid "Club Number"
-msgstr "Numer Klubowy"
-
 msgid "User's club number for booking purposes."
 msgstr "Numer klubowy użytkownika do celów rezerwacji."
 
