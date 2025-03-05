@@ -104,7 +104,10 @@ function srbs_enqueue_settings_assets($hook)
 
     wp_localize_script('srbs-settings-js', 'srbs_ajax', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('srbs_nonce')
+        'nonce' => wp_create_nonce('srbs_nonce'),
+        'static' => __('Static', 'srbs'),
+        'dynamic' => __('Dynamic', 'srbs'),
+        'remove' => __('Remove', 'srbs')
     ));
 }
 add_action('admin_enqueue_scripts', 'srbs_enqueue_settings_assets');
@@ -154,6 +157,10 @@ function srbs_enqueue_assets()
         wp_localize_script('srbs-frontend-js', 'srbs_ajax', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('srbs_nonce'),
+            'error_loading_table' => __("Error loading booking table.", 'srbs'),
+            'error_communication' => __("Error communicating with the server.", 'srbs'),
+            'error_adding_booking' => __("Error adding booking.", 'srbs'),
+            'error_canceling_booking' => __("Error canceling booking.", 'srbs')
         ));
     }
 }
@@ -172,6 +179,7 @@ function srbs_enqueue_admin_assets($hook)
     wp_localize_script('srbs-admin-js', 'srbs_ajax', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('srbs_nonce'),
+        'error_deleting_booking' => __("Error deleting booking.", 'srbs')
     ));
 }
 add_action('admin_enqueue_scripts', 'srbs_enqueue_admin_assets');

@@ -13,11 +13,11 @@ jQuery(document).ready(function ($) {
                     $("#srbs-booking-table-container").html(response.data);
                     addEventHandlers(); // Add event handlers after loading the table
                 } else {
-                    $("#srbs-booking-table-container").html("<p>Wystąpił błąd podczas ładowania tabeli rezerwacji.</p>");
+                    $("#srbs-booking-table-container").html("<p>" + srbs_ajax.error_loading_table + "</p>");
                 }
             },
             error: function () {
-                $("#srbs-booking-table-container").html("<p>Wystąpił błąd podczas komunikacji z serwerem.</p>");
+                $("#srbs-booking-table-container").html("<p>" + srbs_ajax.error_communication + "</p>");
             }
         });
     }
@@ -43,12 +43,12 @@ jQuery(document).ready(function ($) {
                     if (response.success) {
                         loadBookingTable(); // Reload the table to show the updated booking status
                     } else {
-                        showModal(response.data || "Wystąpił błąd podczas dodawania rezerwacji.");
+                        showModal(response.data || srbs_ajax.error_adding_booking);
                         loadBookingTable(); // Reload the table to show the updated booking status
                     }
                 },
                 error: function () {
-                    showModal("Wystąpił błąd podczas komunikacji z serwerem.");
+                    showModal(srbs_ajax.error_communication);
                 }
             });
         });
@@ -69,11 +69,11 @@ jQuery(document).ready(function ($) {
                     if (response.success) {
                         loadBookingTable(); // Reload the table to show the updated booking status
                     } else {
-                        showModal(response.data || "Wystąpił błąd podczas anulowania rezerwacji.");
+                        showModal(response.data || srbs_ajax.error_canceling_booking);
                     }
                 },
                 error: function () {
-                    showModal("Wystąpił błąd podczas komunikacji z serwerem.");
+                    showModal(srbs_ajax.error_communication);
                 }
             });
         });

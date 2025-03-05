@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ✅ Obsługa AJAX dla rezerwacji użytkownika
+// ✅ AJAX handling for user booking
 add_action('wp_ajax_make_booking', 'srbs_make_booking');
 
 function srbs_make_booking()
@@ -11,7 +11,7 @@ function srbs_make_booking()
     check_ajax_referer('srbs_nonce', 'security');
 
     if (!is_user_logged_in()) {
-        wp_send_json_error("Musisz być zalogowany.");
+        wp_send_json_error(__("You must be logged in.", 'srbs'));
     }
 
     global $wpdb;
@@ -23,7 +23,7 @@ function srbs_make_booking()
 
     $booking_type = $dynamic ? 'dynamic' : 'static';
 
-    // Sprawdzenie, czy użytkownik już dokonał rezerwacji na ten typ strzelania
+    // Check if the user has already made a booking for this type of shooting
     $bookings_table = $wpdb->prefix . 'srbs_bookings';
     $existing_booking = $wpdb->get_var($wpdb->prepare("
         SELECT COUNT(*) FROM $bookings_table
@@ -31,10 +31,10 @@ function srbs_make_booking()
     ", $user_id, $date, $booking_type));
 
     if ($existing_booking > 0) {
-        wp_send_json_error("Możesz dokonać tylko jednej rezerwacji na strzelanie $booking_type.");
+        wp_send_json_error(__("You can only make one booking for $booking_type shooting.", 'srbs'));
     }
 
-    // Sprawdzenie, czy slot jest już zajęty
+    // Check if the slot is already booked
     $stand_number = $dynamic ? 0 : intval($_POST['stand_number']);
 
     if ($stand_number > 0) {
@@ -44,11 +44,11 @@ function srbs_make_booking()
     ", $date, $time_slot, $stand_number));
 
         if ($slot_booked > 0) {
-            wp_send_json_error("Wybrany slot jest już zajęty.");
+            wp_send_json_error(__("The selected slot is already booked.", 'srbs'));
         }
     }
 
-    // Sprawdzenie, czy liczba miejsc dla dynamicznego strzelania nie została przekroczona
+    // Check if the number of dynamic shooting slots has been exceeded
     if ($stand_number == 0) {
         $dynamic_slots = srbs_get_setting('max_dynamic_slots');
         $dynamic_slots = $dynamic_slots ? intval($dynamic_slots) : 5;
@@ -58,11 +58,11 @@ function srbs_make_booking()
         ", $date, $time_slot));
 
         if ($dynamic_bookings_count >= $dynamic_slots) {
-            wp_send_json_error("Wszystkie miejsca dla dynamicznego strzelania są już zajęte.");
+            wp_send_json_error(__("All dynamic shooting slots are already booked.", 'srbs'));
         }
     }
 
-    // Wstawienie rezerwacji z wartością 0 dla dynamicznego strzelania
+    // Insert booking with a value of 0 for dynamic shooting
     $wpdb->insert($bookings_table, [
         'user_id' => $user_id,
         'club_number' => $club_number,
@@ -72,10 +72,10 @@ function srbs_make_booking()
         'booking_type' => $booking_type
     ]);
 
-    wp_send_json_success("Rezerwacja dodana.");
+    wp_send_json_success(__("Booking added.", 'srbs'));
 }
 
-// ✅ Obsługa AJAX dla anulowania rezerwacji
+// ✅ AJAX handling for canceling booking
 add_action('wp_ajax_cancel_booking', 'srbs_cancel_booking');
 
 function srbs_cancel_booking()
@@ -83,27 +83,27 @@ function srbs_cancel_booking()
     check_ajax_referer('srbs_nonce', 'security');
 
     if (!is_user_logged_in()) {
-        wp_send_json_error("Musisz być zalogowany.");
+        wp_send_json_error(__("You must be logged in.", 'srbs'));
     }
 
     global $wpdb;
     $user_id = get_current_user_id();
     $booking_id = intval($_POST['booking_id']);
 
-    // Sprawdzenie, czy rezerwacja należy do zalogowanego użytkownika
+    // Check if the booking belongs to the logged-in user
     $bookings_table = $wpdb->prefix . 'srbs_bookings';
     $booking = $wpdb->get_row($wpdb->prepare("
         SELECT * FROM $bookings_table WHERE id = %d AND user_id = %d
     ", $booking_id, $user_id));
 
     if (!$booking) {
-        wp_send_json_error("Nie znaleziono rezerwacji lub nie masz uprawnień do jej anulowania.");
+        wp_send_json_error(__("Booking not found or you do not have permission to cancel it.", 'srbs'));
     }
 
-    // Usunięcie rezerwacji
+    // Delete booking
     $wpdb->delete($bookings_table, ['id' => $booking_id]);
 
-    wp_send_json_success("Rezerwacja anulowana.");
+    wp_send_json_success(__("Booking canceled.", 'srbs'));
 }
 
 function srbs_is_slot_booked($bookings, $stand_number, $time_slot)
@@ -116,7 +116,7 @@ function srbs_is_slot_booked($bookings, $stand_number, $time_slot)
     return false;
 }
 
-// ✅ Obsługa AJAX dla ładowania tabeli rezerwacji
+// ✅ AJAX handling for loading booking table
 add_action('wp_ajax_load_booking_table', 'srbs_load_booking_table');
 
 function srbs_load_booking_table()
@@ -124,7 +124,7 @@ function srbs_load_booking_table()
     check_ajax_referer('srbs_nonce', 'security');
 
     if (!is_user_logged_in()) {
-        wp_send_json_error("Musisz być zalogowany.");
+        wp_send_json_error(__("You must be logged in.", 'srbs'));
     }
 
     global $wpdb;

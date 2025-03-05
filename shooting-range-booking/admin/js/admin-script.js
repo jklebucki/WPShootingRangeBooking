@@ -14,7 +14,7 @@ jQuery(document).ready(function ($) {
                     //alert("Booking has been deleted.");
                     $(`.details-row[data-id='${bookingId}']`).remove();
                 } else {
-                    alert("Error: " + response.data);
+                    alert(srbs_ajax.error_deleting_booking + ": " + response.data);
                 }
             }
         });
