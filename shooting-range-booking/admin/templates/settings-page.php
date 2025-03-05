@@ -139,3 +139,14 @@ if (!empty($time_slots)) {
         </table>
     </form>
 </div>
+<?php
+// Enqueue the settings script
+function srbs_enqueue_settings_script() {
+    wp_enqueue_script('srbs-settings-script', plugin_dir_url(__FILE__) . 'settings-script.js', array('jquery'), null, true);
+    wp_localize_script('srbs-settings-script', 'srbsSettings', array(
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('srbs_settings_nonce')
+    ));
+}
+add_action('admin_enqueue_scripts', 'srbs_enqueue_settings_script');
+?>
