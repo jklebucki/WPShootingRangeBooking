@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Shooting Range Booking System
- * Description: System rezerwacji stanowisk strzeleckich dla WordPress.
+ * Description: Shooting range booking system for WordPress.
  * Version: 1.5.1
  * Author: Jarosław Kłębucki
  */
@@ -11,12 +11,12 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// ✅ Rejestracja menu administracyjnego
+// ✅ Register admin menu
 function srbs_admin_menu()
 {
     add_menu_page(
-        'Rezerwacje Strzelnicy',
-        'Rezerwacje Strzelnicy',
+        'Shooting Range Reservations',
+        'Shooting Range Reservations',
         'manage_options',
         'srbs_admin',
         'srbs_admin_page',
@@ -26,8 +26,8 @@ function srbs_admin_menu()
 
     add_submenu_page(
         'srbs_admin',
-        'Ustawienia Systemu',
-        'Ustawienia Systemu',
+        'System Settings',
+        'System Settings',
         'manage_options',
         'srbs_settings',
         'srbs_settings_page'
@@ -35,8 +35,8 @@ function srbs_admin_menu()
 
     add_submenu_page(
         'srbs_admin',
-        'Zarządzanie Użytkownikami',
-        'Użytkownicy',
+        'User Management',
+        'Users',
         'manage_options',
         'srbs_user_management',
         'srbs_user_management_page'
@@ -44,9 +44,9 @@ function srbs_admin_menu()
 }
 add_action('admin_menu', 'srbs_admin_menu');
 
-// ✅ Wyłączenie cache dla strony rezerwacji
+// ✅ Disable cache for booking page
 function srbs_disable_cache() {
-    if (is_page('rezerwacje-klub')) { // Podmień na właściwy slug strony
+    if (is_page('rezerwacje-klub')) { // Replace with the correct page slug
         header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
         header("Cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
@@ -54,39 +54,39 @@ function srbs_disable_cache() {
 }
 add_action('send_headers', 'srbs_disable_cache');
 
-// ✅ Funkcja dodająca rolę shooter przy aktywacji wtyczki
+// ✅ Function to add shooter role on plugin activation
 function srbs_add_shooter_role() {
     if (!get_role('shooter')) {
-        add_role('shooter', 'Strzelec', [
-            'read' => true, // Użytkownik może czytać posty
+        add_role('shooter', 'Shooter', [
+            'read' => true, // User can read posts
         ]);
     }
 }
 
-// Hook do aktywacji wtyczki
+// Hook for plugin activation
 register_activation_hook(__FILE__, 'srbs_add_shooter_role');
 
-// ✅ Funkcja renderująca stronę administracyjną
+// ✅ Function to render admin page
 function srbs_admin_page()
 {
     if (!current_user_can('manage_options')) {
-        wp_die(__('Nie masz uprawnień do tej strony.'));
+        wp_die(__('You do not have permission to access this page.'));
     }
 
     include plugin_dir_path(__FILE__) . 'admin/templates/admin-page.php';
 }
 
-// ✅ Funkcja renderująca stronę ustawień systemu
+// ✅ Function to render system settings page
 function srbs_settings_page()
 {
     if (!current_user_can('manage_options')) {
-        wp_die(__('Nie masz uprawnień do tej strony.'));
+        wp_die(__('You do not have permission to access this page.'));
     }
 
     include plugin_dir_path(__FILE__) . 'admin/templates/settings-page.php';
 }
 
-// ✅ Ładowanie plików CSS i JS dla strony ustawień
+// ✅ Enqueue CSS and JS files for settings page
 function srbs_enqueue_settings_assets($hook)
 {
     if (strpos($hook, 'srbs_settings') === false) {
@@ -105,12 +105,12 @@ add_action('admin_enqueue_scripts', 'srbs_enqueue_settings_assets');
 
 function srbs_user_management_page() {
     if (!current_user_can('manage_options')) {
-        wp_die(__('Nie masz uprawnień do tej strony.'));
+        wp_die(__('You do not have permission to access this page.'));
     }
     include plugin_dir_path(__FILE__) . 'admin/templates/user-management-page.php';
 }
 
-// ✅ Ładowanie plików CSS i JS dla panelu użytkowników
+// ✅ Enqueue CSS and JS files for user management panel
 function srbs_enqueue_user_management_assets($hook)
 {
     if (strpos($hook, 'srbs_user_management') === false) {
@@ -127,13 +127,10 @@ function srbs_enqueue_user_management_assets($hook)
 }
 add_action('admin_enqueue_scripts', 'srbs_enqueue_user_management_assets');
 
-
-
-
-// ✅ Załadowanie obsługi AJAX
+// ✅ Load AJAX handling
 include plugin_dir_path(__FILE__) . 'admin/includes/user-management-ajax.php';
 
-// ✅ Rejestracja shortcode dla interfejsu użytkownika
+// ✅ Register shortcode for user interface
 function srbs_booking_shortcode()
 {
     ob_start();
@@ -142,7 +139,7 @@ function srbs_booking_shortcode()
 }
 add_shortcode('srbs_booking', 'srbs_booking_shortcode');
 
-// ✅ Ładowanie stylów i skryptów dla użytkownika
+// ✅ Enqueue styles and scripts for user interface
 function srbs_enqueue_assets()
 {
     if (!is_admin()) {
@@ -156,10 +153,10 @@ function srbs_enqueue_assets()
 }
 add_action('wp_enqueue_scripts', 'srbs_enqueue_assets');
 
-// ✅ Ładowanie stylów i skryptów dla panelu administracyjnego
+// ✅ Enqueue styles and scripts for admin panel
 function srbs_enqueue_admin_assets($hook)
 {
-    // Sprawdź, czy jesteśmy na stronie wtyczki
+    // Check if we are on the plugin page
     if (strpos($hook, 'srbs_admin') === false) {
         return;
     }
@@ -173,13 +170,13 @@ function srbs_enqueue_admin_assets($hook)
 }
 add_action('admin_enqueue_scripts', 'srbs_enqueue_admin_assets');
 
-// ✅ Obsługa AJAX dla użytkownika (przeniesiona do osobnego pliku)
+// ✅ AJAX handling for user interface (moved to a separate file)
 include plugin_dir_path(__FILE__) . 'frontend/includes/ajax.php';
 
-// ✅ Obsługa AJAX dla panelu administracyjnego (przeniesiona do osobnego pliku)
+// ✅ AJAX handling for admin panel (moved to a separate file)
 include plugin_dir_path(__FILE__) . 'admin/includes/admin-ajax.php';
 
-// ✅ Funkcja pobierająca ustawienia systemu
+// ✅ Function to get system settings
 function srbs_get_setting($key)
 {
     global $wpdb;
@@ -188,7 +185,7 @@ function srbs_get_setting($key)
     return $value ? $value : null;
 }
 
-// ✅ Instalacja tabel w bazie danych
+// ✅ Install database tables
 function srbs_install()
 {
     global $wpdb;
@@ -219,17 +216,17 @@ function srbs_install()
 }
 register_activation_hook(__FILE__, 'srbs_install');
 
-// ✅ Dodanie pola "Numer klubowy" do profilu użytkownika
+// ✅ Add "Club Number" field to user profile
 function srbs_add_club_number_field($user)
 {
 ?>
-    <h3>Dodatkowe informacje</h3>
+    <h3>Additional Information</h3>
     <table class="form-table">
         <tr>
-            <th><label for="club_number">Numer klubowy</label></th>
+            <th><label for="club_number">Club Number</label></th>
             <td>
                 <input type="text" name="club_number" id="club_number" value="<?php echo esc_attr(get_the_author_meta('club_number', $user->ID)); ?>" class="regular-text" />
-                <p class="description">Numer klubowy użytkownika na potrzeby rezerwacji.</p>
+                <p class="description">User's club number for booking purposes.</p>
             </td>
         </tr>
     </table>
@@ -238,7 +235,7 @@ function srbs_add_club_number_field($user)
 add_action('show_user_profile', 'srbs_add_club_number_field');
 add_action('edit_user_profile', 'srbs_add_club_number_field');
 
-// ✅ Zapisanie pola "Numer klubowy"
+// ✅ Save "Club Number" field
 function srbs_save_club_number_field($user_id)
 {
     if (!current_user_can('edit_user', $user_id)) {
