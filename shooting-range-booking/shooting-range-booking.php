@@ -11,12 +11,18 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+// Load plugin textdomain for translations
+function srbs_load_textdomain() {
+    load_plugin_textdomain('srbs', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+add_action('plugins_loaded', 'srbs_load_textdomain');
+
 // ✅ Register admin menu
 function srbs_admin_menu()
 {
     add_menu_page(
-        'Shooting Range Reservations',
-        'Shooting Range Reservations',
+        __('Shooting Range Reservations', 'srbs'),
+        __('Shooting Range Reservations', 'srbs'),
         'manage_options',
         'srbs_admin',
         'srbs_admin_page',
@@ -26,8 +32,8 @@ function srbs_admin_menu()
 
     add_submenu_page(
         'srbs_admin',
-        'System Settings',
-        'System Settings',
+        __('System Settings', 'srbs'),
+        __('System Settings', 'srbs'),
         'manage_options',
         'srbs_settings',
         'srbs_settings_page'
@@ -35,8 +41,8 @@ function srbs_admin_menu()
 
     add_submenu_page(
         'srbs_admin',
-        'User Management',
-        'Users',
+        __('User Management', 'srbs'),
+        __('Users', 'srbs'),
         'manage_options',
         'srbs_user_management',
         'srbs_user_management_page'
@@ -70,7 +76,7 @@ register_activation_hook(__FILE__, 'srbs_add_shooter_role');
 function srbs_admin_page()
 {
     if (!current_user_can('manage_options')) {
-        wp_die(__('You do not have permission to access this page.'));
+        wp_die(__('You do not have permission to access this page.', 'srbs'));
     }
 
     include plugin_dir_path(__FILE__) . 'admin/templates/admin-page.php';
@@ -80,7 +86,7 @@ function srbs_admin_page()
 function srbs_settings_page()
 {
     if (!current_user_can('manage_options')) {
-        wp_die(__('You do not have permission to access this page.'));
+        wp_die(__('You do not have permission to access this page.', 'srbs'));
     }
 
     include plugin_dir_path(__FILE__) . 'admin/templates/settings-page.php';
@@ -105,7 +111,7 @@ add_action('admin_enqueue_scripts', 'srbs_enqueue_settings_assets');
 
 function srbs_user_management_page() {
     if (!current_user_can('manage_options')) {
-        wp_die(__('You do not have permission to access this page.'));
+        wp_die(__('You do not have permission to access this page.', 'srbs'));
     }
     include plugin_dir_path(__FILE__) . 'admin/templates/user-management-page.php';
 }
@@ -220,13 +226,13 @@ register_activation_hook(__FILE__, 'srbs_install');
 function srbs_add_club_number_field($user)
 {
 ?>
-    <h3>Additional Information</h3>
+    <h3><?php _e('Additional Information', 'srbs'); ?></h3>
     <table class="form-table">
         <tr>
-            <th><label for="club_number">Club Number</label></th>
+            <th><label for="club_number"><?php _e('Club Number', 'srbs'); ?></label></th>
             <td>
                 <input type="text" name="club_number" id="club_number" value="<?php echo esc_attr(get_the_author_meta('club_number', $user->ID)); ?>" class="regular-text" />
-                <p class="description">User's club number for booking purposes.</p>
+                <p class="description"><?php _e("User's club number for booking purposes.", 'srbs'); ?></p>
             </td>
         </tr>
     </table>
